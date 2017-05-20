@@ -1,0 +1,23 @@
+<div class="navbar navbar-inverse" role="navigation" ng-if="connected">
+	<div id="menuButton">
+		<img class="headerPhoto menuPhoto" src="img/menu.png"/>
+	</div>
+	
+	<img class="headerPhoto logoPhoto" src="img/logo.png"/>
+	<img ng-click="takeImage();" class="headerPhoto cameraPhoto" src="img/photo3.jpg"/>
+</div>
+<div class="menu navbar navbar-inverse" id="menu" role="navigation" ng-if="connected">
+	<div>
+		<ul class="nav">
+			<li>
+				<a class="menu-item" href="#map">Voir la carte</a>
+			</li>
+			<li>
+				<a class="menu-item" href="#discounts">Générer une réduction</a>
+			</li>
+			<li>
+				<a class="menu-item" href="#">Paramètres</a>
+			</li>
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,2 @@
+ionic plugin add cordova-plugin-camera
+cordova plugin add https://github.com/wildabeast/BarcodeScanner.git

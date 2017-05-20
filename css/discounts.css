@@ -1,0 +1,32 @@
+.points {
+	text-align : center;
+	color : #ee0c4b;
+	font-weight : bold;
+	font-size : 1.4em;
+	background-color : rgb(50, 50, 50);
+	padding : 20px;
+}
+
+a {
+	display : block;
+	height : 100%;
+	padding : 10px;
+}
+
+.item {
+	padding : 0px;
+}
+
+#discounts img {
+	height : 80px;
+	max-width : 100px;
+}
+
+#discounts a {
+	color : white;
+	font-weight : bold;
+}
+
+.logoCell {
+	text-align : center;
+}

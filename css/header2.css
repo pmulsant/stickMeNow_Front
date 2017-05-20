@@ -1,0 +1,66 @@
+.menu-item {
+	color : #fff;
+}
+
+.headerPhoto {
+	position : absolute;
+	width: 55px;
+	height: 30px;
+	top : 50%;
+	transform : translateY(-50%);
+	opacity : 0.85;
+}
+
+.menuPhoto {
+	left : 3%;
+	transition : 0.3s;
+}
+
+.menuPhoto:hover {
+	transform : translateY(-50%) rotate(180deg);
+	transition : 0.3s;
+}
+
+/*#menuButton:hover + #menu {
+	display : block;
+}*/
+
+.logoPhoto {
+	left : 50%;
+	transform : translateX(-50%) translateY(-50%);
+}
+
+@keyframes example {
+    0%   {width : 55px;height : 30px;}
+    50%   {width : 60px;height : 35px;}
+    0%   {width : 55px; height : 30px;}
+}
+
+.logoPhoto:hover {
+	animation-name: example;
+    animation-duration: 0.25s;
+}
+
+.cameraPhoto {
+	right : 3%;
+}
+
+.menu {
+	position : absolute;
+	top : 50px;
+	width : 100%;
+	display : none;
+	z-index : 2;
+}
+
+#header {
+	z-index : 2;
+}
+
+.navbar {
+	margin-bottom : 0px;
+}
+
+ion-side-menu-content {
+	background-color : black;
+}
