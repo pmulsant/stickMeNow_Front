@@ -1,10 +1,13 @@
 <div class="navbar navbar-inverse" role="navigation" ng-if="connected">
 	<div id="menuButton">
-		<img class="headerPhoto menuPhoto" src="img/menu.png"/>
+		<!--<img class="headerPhoto menuPhoto" src="img/menu.png"/>-->
+		<i class="fa fa-bars  fa-3x  menuPhoto" style="color:#FFFFFF;margin-left: 2%;margin-top: 1%;" aria-hidden="true" ></i>
+		<!-- Modification de menuPhoto. Icon fixe-->
 	</div>
 	
 	<img class="headerPhoto logoPhoto" src="img/logo.png"/>
-	<img ng-click="takeImage();" class="headerPhoto cameraPhoto" src="img/photo3.jpg"/>
+	<i ng-click="takeImage();" class="fa fa-camera fa-3x headerPhoto cameraPhoto" style="color:#FFFFFF;margin-top: 0.8%;margin-right: -2.2%;" aria-hidden="true" ></i>
+	<!--<img class="headerPhoto cameraPhoto" src="img/photo3.jpg"/>-->
 </div>
 <div class="menu navbar navbar-inverse" id="menu" role="navigation" ng-if="connected">
 	<div>
@@ -16,7 +19,7 @@
 				<a class="menu-item" href="#discounts">Générer une réduction</a>
 			</li>
 			<li>
-				<a class="menu-item" href="#">Paramètres</a>
+				<a class="menu-item" href="#parameters">Paramètres</a>
 			</li>
 		</ul>
 	</div>
