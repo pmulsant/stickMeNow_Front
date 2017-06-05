@@ -6,11 +6,13 @@ function initMap(){
 
 (function(){
 	// class MapManager
-	function MapManager(){
+	function MapManager(network){
+		this.network = network;
+		
 		this.map;
 		this.updateMarkersPeriod = 10 * 1000;
 		this.firstUpdate = true;
-		this.searchOnServer = false;
+		this.searchOnServer = true;
 		this.markers = [];
 		this.markerWidth = 30;
 		this.markerHeight = 30;
@@ -20,12 +22,13 @@ function initMap(){
 	}
 	
 	MapManager.prototype = {
-		handleMarkers : function(){
+		handleMarkers : function(httpService){
+			this.httpService = httpService;
 			var self = this;
 			this.initMap();
 			this.updateMarkers();
 			setInterval(function(){
-				self.updateMarkers();
+				self.network.searchDrivers(self.httpService, self);
 			}, this.updateMarkersPeriod);
 		},
 		initMap() {
@@ -37,7 +40,7 @@ function initMap(){
 				});
 			} catch(err){}
 		},
-		updateMarkers : function(){
+		/*updateMarkers : function(){
 			var self = this;
 			this.searchMarkersData(function(markersData){
 				self.clearMarkers();
@@ -47,8 +50,16 @@ function initMap(){
 				}
 				self.firstUpdate = false;
 			});
+		},*/
+		updateMarkers : function(markersData){
+			this.clearMarkers();
+			for(var i in markersData){
+				var markerData = markersData[i];
+				this.addMarker(markerData.imgPath, {lat : markerData.lat, lng : markerData.lng});
+			}
+			this.firstUpdate = false;
 		},
-		searchMarkersData : function(cb){
+		/*searchMarkersData : function(cb){
 			if(this.searchOnServer){
 				$http.get("http://www.google.fr", { params: { "key1": "value1", "key2": "value2" } })
 				.success(function(data) {
@@ -64,7 +75,7 @@ function initMap(){
 				];
 				cb(markersData);
 			}
-		},
+		},*/
 		clearMarkers : function(){
 			for(var i in this.markers){
 				this.markers[i].setMap(null);
@@ -105,5 +116,5 @@ function initMap(){
 		}
 	}
 	
-	mapManager = new MapManager();
+	mapManager = new MapManager(network);
 })();

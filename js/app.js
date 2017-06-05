@@ -25,7 +25,7 @@ var app = angular.module('starter', ['ionic', 'ngCordova'])
     });
 app.controller('MapController', function($scope, $http){
 	if(window.google != undefined) {
-		mapManager.handleMarkers();
+		mapManager.handleMarkers($http);
 	}
 });
 app.controller('DiscountsController', function($scope, $http){
