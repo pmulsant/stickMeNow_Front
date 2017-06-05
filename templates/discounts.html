@@ -1,10 +1,10 @@
-<div class="points">Mes points : {{points}}</div>
+<div class="points">Nos sociétés partenaires (Vos points : {{points}})</div>
 <!--<ion-list>
     <ion-item ng-repeat="discount in discounts">
 		<a href="#/discount/{{discount.id}}"><img src="{{discount.src}}"/>{{discount.name}}</a>
     </ion-item>
 </ion-list>-->
-<table id="discounts" style="width:100%">
+<!--<table id="discounts" style="width:100%">
 	<tr ng-repeat="discount in discounts" style="background-color:{{$index %2 == 0 ? 'rgb(100, 100, 100)' : 'rgb(40, 20, 20)';}};">
 		<td class="logoCell">
 			<a href="#/discount/{{discount.id}}">
@@ -18,3 +18,9 @@
 		</td>
 	</tr>
 </table>
+-->
+<ion-list>
+   <ion-item ng-repeat="discount in discounts"  class="item item-avatar" href="#/discount/{{discount.id}}">
+		<img src="{{discount.src}}"/>{{discount.name}}
+    </ion-item>
+</ion-list>

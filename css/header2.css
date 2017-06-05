@@ -1,14 +1,12 @@
 .menu-item {
-	color : #fff;
+	color : #000000;
 }
 
 .headerPhoto {
 	position : absolute;
-	width: 55px;
-	height: 30px;
 	top : 50%;
 	transform : translateY(-50%);
-	opacity : 0.85;
+	
 }
 
 .menuPhoto {
@@ -17,7 +15,6 @@
 }
 
 .menuPhoto:hover {
-	transform : translateY(-50%) rotate(180deg);
 	transition : 0.3s;
 }
 

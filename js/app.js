@@ -20,7 +20,11 @@ var app = angular.module('starter', ['ionic', 'ngCordova'])
 				url: '/discount/:id',
                 templateUrl: 'templates/discount.html',
                 controller: 'DiscountController'
-			});
+			}).state('parameters',{
+                 url: '/parameters',
+                templateUrl: 'templates/parameters.html',
+                controller: 'ParametersController'
+            });
         $urlRouterProvider.otherwise('/map');
     });
 app.controller('MapController', function($scope, $http){
@@ -63,7 +67,9 @@ app.controller('headerController', function($scope, $cordovaCamera, $cordovaBarc
 		}
     };
 });
-
+app.controller('ParametersController', function($scope, $stateParams, $http){
+   
+});
 app.run(function($rootScope){
 	$rootScope.$on("$includeContentLoaded", function(event, templateName){
 		if(templateName == 'header.html'){
