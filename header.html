@@ -1,26 +1,39 @@
 <div class="navbar navbar-inverse" role="navigation" ng-if="connected">
 	<div id="menuButton">
 		<!--<img class="headerPhoto menuPhoto" src="img/menu.png"/>-->
-		<i class="fa fa-bars  fa-3x  menuPhoto" style="color:#FFFFFF;margin-left: 2%;margin-top: 1%;" aria-hidden="true" ></i>
+		<i class="fa fa-bars  fa-2x  menuPhoto" style="color:#FFFFFF;margin-left: 3%;margin-top: 1.75%;" aria-hidden="true" ></i>
 		<!-- Modification de menuPhoto. Icon fixe-->
 	</div>
 	
 	<img class="headerPhoto logoPhoto" src="img/logo.png"/>
-	<i ng-click="takeImage();" class="fa fa-camera fa-3x headerPhoto cameraPhoto" style="color:#FFFFFF;margin-top: 0.8%;margin-right: -2.2%;" aria-hidden="true" ></i>
+	<i ng-click="takeImage();" class="fa fa-camera fa-2x headerPhoto cameraPhoto" style="color:#FFFFFF;margin-top: 0%;margin-right: 1%;" aria-hidden="true" ></i>
 	<!--<img class="headerPhoto cameraPhoto" src="img/photo3.jpg"/>-->
 </div>
 <div class="menu navbar navbar-inverse" id="menu" role="navigation" ng-if="connected">
 	<div>
-		<ul class="nav">
-			<li>
-				<a class="menu-item" href="#map">Voir la carte</a>
-			</li>
-			<li>
-				<a class="menu-item" href="#discounts">Générer une réduction</a>
-			</li>
-			<li>
-				<a class="menu-item" href="#parameters">Paramètres</a>
-			</li>
-		</ul>
+
+	 <ion-header-bar class="bar-dark">
+    <h1 class="title">Menu</h1>
+  </ion-header-bar>
+  <ion-content>
+		<ion-list>
+			<ion-item class="menu-item" href="#map">
+			<i class="fa fa-map" aria-hidden="true"></i>
+          Voir la carte
+        </ion-item>
+        </ion-item>
+			<ion-item class="menu-item" href="#discounts">
+			<i class="fa fa-ticket" aria-hidden="true"></i>
+         Générer une réduction
+        </ion-item>
+         </ion-item>
+			<ion-item class="menu-item" href="#parameters">
+			<i class="fa fa-cog" aria-hidden="true"></i>
+        Paramètres
+        </ion-item>
+			
+		</ion-list>
+	</ion-content>	
+
 	</div>
 </div>
