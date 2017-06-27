@@ -5,27 +5,30 @@
     <div class="col-lg-4 col-lg-offset-4">
       <div class="input-group" style="margin-left:5%;">
     		<span class="input-group-addon">Adresse</span>
- 	 <input type="text" class="form-control" id="usr"></input>
+ 	 <input type="text" class="form-control" id="usr" ng-model="address"></input>
  	 </div>
     </div><!-- /.col-lg-4 -->
 </div><!-- /.row -->
-<div class="row" style="margin-top: 25px;">
-    <div class="col-lg-4 col-lg-offset-4">
-      <div class="input-group" style="margin-left:5%;">
-    		<span class="input-group-addon" style=" padding-right: 25px;">Points</span>
- 	 <input type="number" class="form-control" id="usr"></input>
- 	 </div>
-    </div><!-- /.col-lg-4 -->
-</div><!-- /.row -->
+
 <div class="row" style="margin-top: 25px;">
     <div class="col-lg-4 col-lg-offset-4">
       <div class="input-group" style="margin-left:5%;">
     		<span class="input-group-addon" style=" padding-right: 25px;">Email</span>
- 	 <input type="number" class="form-control" id="usr"></input>
+ 	 <input type="text" class="form-control" id="usr" ng-model="email"></input>
  	 </div>
     </div><!-- /.col-lg-4 -->
 </div><!-- /.row -->
-<div style="margin-top: 25px;">
+
+<div class="row" style="margin-top: 25px;">
+    <div class="col-lg-4 col-lg-offset-4">
+      <div class="input-group" style="margin-left:5%;">
+    		<span class="input-group-addon" style=" padding-right: 25px;">Points</span>
+ 	 <input type="number" class="form-control" id="usr" ng-model="points"></input>
+ 	 </div>
+    </div><!-- /.col-lg-4 -->
+</div><!-- /.row -->
+
+<div ng-click="sendRequest();" style="margin-top: 25px;">
   <input value="Recevoir un coupon" title="Recevoir" class="btn " type="submit" style="background-color : #ee0c4b;"> 
   </div>
 

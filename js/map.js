@@ -26,7 +26,7 @@ function initMap(){
 			this.httpService = httpService;
 			var self = this;
 			this.initMap();
-			this.updateMarkers();
+			self.network.searchDrivers(self.httpService, self);
 			setInterval(function(){
 				self.network.searchDrivers(self.httpService, self);
 			}, this.updateMarkersPeriod);
@@ -83,11 +83,14 @@ function initMap(){
 			this.markers = [];
 		},
 		addMarker : function(imgSrc, position){
-			if(google)
-			var pinIcon = new google.maps.MarkerImage(
-				imgSrc, null, null, null,
-				new google.maps.Size(this.markerWidth, this.markerHeight)
-			);
+			if(google){
+				var pinIcon = new google.maps.MarkerImage(
+					imgSrc, null, null, null,
+					new google.maps.Size(this.markerWidth, this.markerHeight)
+				);
+			} else {
+				console.log('pas');
+			}
 			var marker;
 			if(this.firstUpdate){
 				marker = new google.maps.Marker({

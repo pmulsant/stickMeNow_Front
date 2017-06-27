@@ -33,7 +33,11 @@ app.controller('MapController', function($scope, $http){
 	}
 });
 app.controller('DiscountsController', function($scope, $http){
-	$scope.points = 10;
+	$scope.points = '...';
+	network.searchPoints($http, function(points){
+		$scope.points = points;
+		$scope.$apply();
+	});
 	$scope.discounts = [
 		{id : 0, name : 'Adidas', src : 'img/adidas.png'},
 		{id : 1, name : 'Nike', src : 'img/nike.png'},
@@ -44,6 +48,17 @@ app.controller('DiscountsController', function($scope, $http){
 });
 app.controller('DiscountController', function($scope, $stateParams, $http){
 	$scope.id = $stateParams.id;
+	$scope.email = '...';
+	$scope.adress = '...';
+	$scope.points = 0;
+	$scope.sendRequest = function(){
+		network.postCouponRequest($http, $scope.email, $scope.address, $scope.points);
+	}
+	network.searchUserData($http, function(userData){
+		$scope.email = userData.email;
+		$scope.address = userData.address;
+		$scope.$apply();
+	});
 });
 app.controller('headerController', function($scope, $cordovaCamera, $cordovaBarcodeScanner, $ionicPlatform){
 	$scope.connected = true;
