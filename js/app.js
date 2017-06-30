@@ -1,4 +1,4 @@
-var SEARCH_ON_SERVER = true;
+var SEARCH_ON_SERVER = false;
 var USE_CAMERA = false;
 
 network.searchOnServer = SEARCH_ON_SERVER;
