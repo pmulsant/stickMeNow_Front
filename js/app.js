@@ -1,4 +1,7 @@
-var server = false;
+var SEARCH_ON_SERVER = true;
+var USE_CAMERA = false;
+
+network.searchOnServer = SEARCH_ON_SERVER;
 
 var app = angular.module('starter', ['ionic', 'ngCordova'])
     .run(function($ionicPlatform) {
@@ -13,10 +16,12 @@ var app = angular.module('starter', ['ionic', 'ngCordova'])
                 templateUrl: 'templates/map.html',
                 controller: 'MapController'
             }).state('discounts', {
+				cache: false,
 				url: '/discounts',
                 templateUrl: 'templates/discounts.html',
                 controller: 'DiscountsController'
 			}).state('discount', {
+				cache: false,
 				url: '/discount/:id',
                 templateUrl: 'templates/discount.html',
                 controller: 'DiscountController'
@@ -46,13 +51,27 @@ app.controller('DiscountsController', function($scope, $http){
 		{id : 4, name : 'Sushishop', src : 'img/sushishop.jpg'}
 	];
 });
-app.controller('DiscountController', function($scope, $stateParams, $http){
+app.controller('DiscountController', function($scope, $state, $stateParams, $http){
 	$scope.id = $stateParams.id;
+	$scope.disableReceive = false;
 	$scope.email = '...';
 	$scope.adress = '...';
 	$scope.points = 0;
 	$scope.sendRequest = function(){
-		network.postCouponRequest($http, $scope.email, $scope.address, $scope.points);
+		if(!$scope.disableReceive){
+			$scope.disableReceive = true;
+			console.log('click');
+			if($scope.points <= 0){
+				alert('Le nombre de points doit être positif');
+				$scope.disableReceive = false;
+				return;
+			} if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($scope.email)){
+				alert('L\'email n\'a pas une forme correcte');
+				$scope.disableReceive = false;
+				return;
+			}
+			network.postCouponRequest($http, $state, $scope);
+		}
 	}
 	network.searchUserData($http, function(userData){
 		$scope.email = userData.email;
@@ -60,25 +79,26 @@ app.controller('DiscountController', function($scope, $stateParams, $http){
 		$scope.$apply();
 	});
 });
-app.controller('headerController', function($scope, $cordovaCamera, $cordovaBarcodeScanner, $ionicPlatform){
+app.controller('headerController', function($scope, $http, $cordovaBarcodeScanner, $ionicPlatform){
 	$scope.connected = true;
 	$scope.takeImage = function(){
-		try {
-            $ionicPlatform.ready(function() {
-                $cordovaBarcodeScanner
-                    .scan()
-                    .then(function(result) {
-                        // Success! Barcode data is here
-                        alert(result.text + "\n" +
-                        "Format: " + result.format + "\n" +
-                        "Cancelled: " + result.cancelled);
-                    }, function(error) {
-                        // An error occurred
-                        alert('Error: ' + error);
-                    });
-            });
-		} catch(err){
-			alert('err:' + err);
+		if(USE_CAMERA){
+			try {
+				$ionicPlatform.ready(function() {
+					$cordovaBarcodeScanner
+						.scan()
+						.then(function(result) {
+							network.sendScan($http, result.text);
+						}, function(error) {
+							// An error occurred
+							alert('Error: ' + error);
+						});
+				});
+			} catch(err){
+				alert('err:' + err);
+			}
+		} else {
+			network.sendScan($http, 'ranas2');
 		}
     };
 });

@@ -3,7 +3,7 @@ var network;
 (function(){
 	// class Network
 	function Network(){
-		this.searchOnServer = false;
+		this.searchOnServer = true;
 		this.urlServer = 'http://localhost:8080/stickMeNow_back';
 		this.cannotFindServerError = 'impossible de récupérer les données du serveur (vérifiez votre connexion internet)';
 		this.errorOnServerError = 'une erreur s\'est produite sur le serveur';
@@ -47,14 +47,46 @@ var network;
 				}, 1000);
 			}
 		},
-		postCouponRequest : function($http, email, address, points){
-			this.doPostRequest($http, {email : email, address : address, points : points},
-				this.urlServer + '/postCouponRequest', function(response){
-					console.log('response : ' + response);
-				});
+		postCouponRequest : function($http, $state,$scope){
+			if(this.searchOnServer){
+				this.doPostRequest($http, {email : $scope.email, address : $scope.address, points : $scope.points, companyId : $scope.id},
+					this.urlServer + '/postCouponRequest', function(response){
+						if(response == true){
+							$state.go('map');
+							alert('Vous allez recevoir d\'ici deux jours un coupon de réduction de ' + $scope.points + ' euros');
+						} else {
+							alert('Votre nombre de point est insuffisant');
+						}
+						$scope.disableReceive = false;
+					}, function(error){
+						$scope.disableReceive = false;
+					});
+			} else {
+				setTimeout(function(){
+					$scope.disableReceive = false;
+					$state.go('map');
+					alert('Vous allez recevoir d\'ici deux jours un coupon de réduction de ' + $scope.points + ' euros');
+				}, 3000);
+			}
+		},
+		sendScan : function($http, barCode){
+			if(this.searchOnServer){
+				this.doPostRequest($http, {barCode : barCode},
+					this.urlServer + '/postScanRequest', function(response){
+						if(response == true){
+							alert('Vous avez scannez la publicité');
+						} else {
+							alert('Code barre incorrect');
+						}
+					});
+			} else {
+				setTimeout(function(){
+					alert('Vous avez scannez la publicité');
+				}, 1000);
+			}
 		},
 		
-		doGetRequest : function(httpService, url, successCb){
+		doGetRequest : function(httpService, url, successCb, errorCb){
 			var self = this;
 			httpService = httpService || $;
 			httpService.get(url)
@@ -63,10 +95,10 @@ var network;
 				})
 				.error(function(error) {
 					console.log('error : ' + error);
-					self.treatError(error, self.cannotFindServerError);
+					self.treatError(error, self.cannotFindServerError, errorCb);
 				});
 		},
-		doPostRequest : function(httpService, variables, url, successCb){
+		doPostRequest : function(httpService, variables, url, successCb, errorCb){
 			var self = this;
 			httpService = httpService || $;
 			console.log(httpService + ', ' + url + ', ' + variables);
@@ -76,7 +108,7 @@ var network;
 				})
 				.error(function(error) {
 					console.log('error : ' + error);
-					self.treatError(error, self.cannotFindServerError);
+					self.treatError(error, self.cannotFindServerError, errorCb);
 				});
 		},
 		treatResponse : function(data, successCb){
@@ -90,7 +122,10 @@ var network;
 				successCb(jsonData);
 			}
 		},
-		treatError : function(initialError, errorMsg){
+		treatError : function(initialError, errorMsg, errorCb){
+			if(errorCb != null && errorCb != undefined){
+				errorCb(initialError);
+			}
 			alert(errorMsg);
 		}
 	}
